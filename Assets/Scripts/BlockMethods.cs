@@ -13,7 +13,7 @@ namespace BlockMethods {
 		public static void ResizeParents(Block curr){
 			float margin = 0.25f;
 			float newHeight = GetSumChildrenHeight(curr) + curr.children.Count*(margin) + 1; //Children Height + .25*2 spacing + .5*2 margin
-			float newWidth = GetSumChildrenWidth(curr);
+			float newWidth = GetGreatestChildrenWidth (curr);
 			
 			ApplyScale (curr, newWidth, newHeight);
 			
@@ -23,23 +23,34 @@ namespace BlockMethods {
 		}
 		
 		public static void ApplyScale(Block curr, float newWidth, float newHeight) {
-			Vector3 newScale = new Vector3 (newWidth, newHeight - curr.transform.localScale.y, 0);
+			float scaleHeight = newHeight;
+			float scaleWidth = newWidth;
+			if (newHeight - curr.transform.localScale.y > 0)
+								scaleHeight = newHeight - curr.transform.localScale.y;
+			if (newWidth - curr.transform.localScale.x > 0)
+								scaleWidth = newWidth - curr.transform.localScale.x;
+
+			Vector3 newScale = new Vector3 (scaleWidth, scaleHeight, 0);
 			curr.transform.localScale += newScale;
 			
 			curr.spriteDim.y = curr.renderer.bounds.size.y;
 			curr.spriteDim.x = curr.renderer.bounds.size.x;
 		}
 		
-		public static float GetSumChildrenWidth(Block curr){
-			
-			float sum = GameObject.Find (curr.children[0]).GetComponent<Block>().spriteDim.x; 
-			
-			if (curr.spriteDim.x > (sum + sum)) 
+		public static float GetGreatestChildrenWidth(Block curr){
+
+			float greatestChildWidth = 0;
+			for(int i = 0; i < curr.children.Count; i++)
 			{
-				sum = 0;
+				float currWidth = GameObject.Find (curr.children[i]).GetComponent<Block>().transform.localScale.x;
+
+				if(currWidth > greatestChildWidth)
+				{
+					greatestChildWidth = currWidth;
+				}
 			}
-			
-			return sum;
+
+			return greatestChildWidth;
 		}
 		
 		public static float GetSumChildrenHeight(Block curr){
@@ -65,7 +76,8 @@ namespace BlockMethods {
 		public static void UpdateChildrenCenters(Block curr){
 
 			if (curr.children.Count == 1) {
-				UpdateSingleChildCenter (curr);
+				Block childBlock = GameObject.Find (curr.children[0]).GetComponent<Block> ();
+				UpdateSingleChildCenter (curr, childBlock);
 			}
 
 			else if (curr.children.Count > 1) {
@@ -163,8 +175,7 @@ namespace BlockMethods {
 			}
 		}
 
-		public static void UpdateSingleChildCenter(Block curr){
-			Block childBlock = GameObject.Find (curr.children[0]).GetComponent<Block> ();
+		public static void UpdateSingleChildCenter(Block curr, Block childBlock){
 			Vector3 newCenter = new Vector3 (curr.relativeCenter.x, 
 			                                 curr.relativeCenter.y, 
 			                                 curr.transform.position.z - 1);
@@ -175,6 +186,71 @@ namespace BlockMethods {
 		public static void UpdateRootCenter(Block curr){
 			if (curr.root == curr) {
 				curr.relativeCenter = curr.transform.GetComponentInChildren<Renderer> ().bounds.center;
+			}
+		}
+	}
+
+	public static class Collision
+	{
+
+		public static void setRoot(Block parent, Block child){
+			
+			if(parent.root == null) { 
+				parent.root = parent;
+				child.root = parent;
+			}
+			
+			else
+				child.root = parent.root;
+		}
+		
+		public static void addChild(Block currParent, Block currChild, string child){
+
+			int index = 0;
+			bool isNotAtEnd = false;
+
+			if (currParent.children.Count > 0) {
+				for(int i = 0; i < currParent.children.Count; i++)
+				{
+					Block curr = GameObject.Find(currParent.children[i]).GetComponent<Block>();
+					float currY = curr.transform.position.y;
+
+					if(currChild.transform.position.y > currY)
+					{
+						if(i != 0)
+							index = i - 1;
+						isNotAtEnd = true;
+						break;
+					}
+				}
+			}
+
+			if(!isNotAtEnd)
+				currParent.children.Add(child);
+
+			else
+				currParent.children.Insert(index, child);
+
+			currChild.parent = currParent;
+		}
+
+		public static void HandleParentChildCollision(Block childBlock, Block parentBlock, string childName)
+		{
+			IgnoreParentChildCollisions(childBlock, parentBlock);
+			setRoot (parentBlock,childBlock);
+			addChild(parentBlock,childBlock, childName);
+			Scale.Resize(parentBlock);
+		}
+		
+		public static void IgnoreParentChildCollisions(Block childBlock, Block parentBlock)
+		{
+			Block curr = childBlock;
+			Block currParent = parentBlock;
+			
+			while(currParent != null)
+			{
+				Physics2D.IgnoreCollision(curr.collider2D, currParent.collider2D);
+				currParent = currParent.parent;
 			}
 		}
 	}

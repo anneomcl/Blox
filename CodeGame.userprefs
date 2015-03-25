@@ -1,12 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Block.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Code.cs">
     <Files>
-      <File FileName="CodeGame.sln" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Block.cs" Line="107" Column="20" />
-      <File FileName="Assets\Scripts\BlockMethods.cs" Line="133" Column="9" />
-      <File FileName="Assets\Scripts\UnityTestTools\UnitTesting\Editor\NUnit\BlockUnitTests.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ToDoList.cs" Line="5" Column="87" />
+      <File FileName="Assets\Scripts\loopBlock.cs" Line="6" Column="43" />
+      <File FileName="Assets\Scripts\Code.cs" Line="72" Column="49" />
+      <File FileName="Assets\Scripts\printBlock.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
