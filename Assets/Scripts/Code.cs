@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using Mono.CSharp;
+using System;
 
 namespace Code {
 
@@ -18,7 +20,43 @@ namespace Code {
 				Debug.Log ("No block found!");
 
 			Debug.Log ("Parsed code: " + code);
+			string result = ExecuteParsedCode (code);
 		}
+
+		public static string ExecuteParsedCode(string parsedCode){
+			Mono.CSharp.Evaluator.Init (new string[] {});
+			foreach(System.Reflection.Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+			{
+				Mono.CSharp.Evaluator.ReferenceAssembly(assembly);
+			}
+			Evaluator.Run ("using UnityEngine;\n" + "using System;");
+			if(Evaluator.Run(parsedCode)) Debug.Log ("Success!");
+			else Debug.Log ("ERROR");
+			parsedCode = "";
+
+			return "";
+		}
+		
+		//Only works in .NET 4.0+ frameworks :(
+		/*public static string ExecuteParsedCode(string parsedCode){
+
+			CodeDomProvider provider = CodeDomProvider.CreateProvider ("CSharp");
+			bool compileOK = false;
+			string exeName = "parsedCode.exe";
+
+			CompilerParameters cp = new CompilerParameters ();
+			cp.GenerateExecutable = true;
+			cp.OutputAssembly = exeName;
+			cp.GenerateInMemory = false;
+			cp.TreatWarningsAsErrors = false;
+
+			CompilerResults cr = provider.CompileAssemblyFromSource (cp, parsedCode);
+
+			if(cr.Errors.Count > 0) compileOK = false;
+			else compileOK = true;
+
+			return "";
+		}*/
 
 		public static Block findRootBlock(){
 			GameObject [] blockObjects = GameObject.FindGameObjectsWithTag ("Block");
@@ -60,9 +98,10 @@ namespace Code {
 			return expression;
 		}
 
+		//make functionality for inner loops (replace i with j or k)
 		public static string ParseLoopBlock(Block child)
 		{
-			string expression = "for(i = 0; i < " + child.BlockInput + "; i++){";
+			string expression = "for(int i = 0; i < " + child.BlockInput + "; i++){";
 
 			if(child.children.Count > 0){
 				foreach (string currChild in child.children)

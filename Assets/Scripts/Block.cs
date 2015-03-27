@@ -26,13 +26,9 @@ public class Block : MonoBehaviour {
 	#endregion
 
 	void Start(){
-	
 	}
 
-
 	void Update(){
-
-
 	}
 
 	void OnMouseDown(){
@@ -44,7 +40,8 @@ public class Block : MonoBehaviour {
 	void OnMouseUp (){
 	}
 
-	void OnCollisionEnter2D(Collision2D collision) {
+	//allow multi-child blocks to enter into a single parent
+	void OnCollisionEnter(Collision collision) {
 		Block parentBlock = collision.gameObject.GetComponent<Block>();
 		Block childBlock = this;
 		string childName = this.name;
@@ -55,7 +52,7 @@ public class Block : MonoBehaviour {
 		if (collision.gameObject.tag == "Block" & 
 		    !parentBlock.isFreeToMove & childBlock.isSelectedBlock)
 		{
-			BlockMethods.Collision.HandleParentChildCollision(childBlock, parentBlock, childName);
+			BlockMethods.BlockCollision.HandleParentChildCollision(childBlock, parentBlock, childName);
 		}
 	}
 }

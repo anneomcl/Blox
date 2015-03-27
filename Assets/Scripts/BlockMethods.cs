@@ -107,11 +107,40 @@ namespace BlockMethods {
 				                                (float) curr.relativeCenter.y + offsetList[i], 
 				                                curr.transform.position.z - 1);
 
+				MoveColliderUpOneLayer(curr, childBlock);
 				childBlock.relativeCenter = newCenter;
 				childBlock.transform.position = newCenter;
 				
 				i+=1;
 			}
+		}
+
+		public static void UpdateSingleChildCenter(Block curr, Block childBlock){
+			Vector3 newCenter = new Vector3 (curr.relativeCenter.x, 
+			                                 curr.relativeCenter.y, 
+			                                 curr.transform.position.z - 1);
+			MoveColliderUpOneLayer(curr, childBlock);
+			childBlock.relativeCenter = newCenter;
+			childBlock.transform.position = newCenter;
+		}
+
+		public static void MoveColliderUpOneLayer(Block parent, Block child)
+		{
+			BoxCollider bc_parent = parent.GetComponent<BoxCollider> ();
+			float newColliderZ = bc_parent.center.z - 1; 
+
+			BoxCollider bc_child = child.GetComponent<BoxCollider> ();
+			bc_child.center = 
+				new Vector3(bc_child.center.x, bc_child.center.y, newColliderZ);
+		}
+
+		public static void MoveColliderUpManyLayers(Block child, float newZ)
+		{
+			float newColliderZ = newZ;
+			
+			BoxCollider bc_child = child.GetComponent<BoxCollider> ();
+			bc_child.center = 
+				new Vector3(bc_child.center.x, bc_child.center.y, newColliderZ);
 		}
 
 		public static void CalculateOffsetsEvenChildren(float numChildren, float parentYDim, float parentYCenter, float margin, List<float> offsetList){
@@ -175,14 +204,6 @@ namespace BlockMethods {
 			}
 		}
 
-		public static void UpdateSingleChildCenter(Block curr, Block childBlock){
-			Vector3 newCenter = new Vector3 (curr.relativeCenter.x, 
-			                                 curr.relativeCenter.y, 
-			                                 curr.transform.position.z - 1);
-			childBlock.relativeCenter = newCenter;
-			childBlock.transform.position = newCenter;
-		}
-
 		public static void UpdateRootCenter(Block curr){
 			if (curr.root == curr) {
 				curr.relativeCenter = curr.transform.GetComponentInChildren<Renderer> ().bounds.center;
@@ -190,7 +211,7 @@ namespace BlockMethods {
 		}
 	}
 
-	public static class Collision
+	public static class BlockCollision
 	{
 
 		public static void setRoot(Block parent, Block child){
@@ -249,7 +270,7 @@ namespace BlockMethods {
 			
 			while(currParent != null)
 			{
-				Physics2D.IgnoreCollision(curr.collider2D, currParent.collider2D);
+				Physics.IgnoreCollision(curr.collider, currParent.collider);
 				currParent = currParent.parent;
 			}
 		}

@@ -119,6 +119,9 @@
  <Reference Include="UnityEditor.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/Editor/UnityEditor.UI.dll</HintPath>
  </Reference>
+ <Reference Include="mono.csharp">
+ <HintPath>C:/Users/Anne/Documents/CodeGame/Assets/mono.csharp.dll</HintPath>
+ </Reference>
  <Reference Include="NSubstitute">
  <HintPath>C:/Users/Anne/Documents/CodeGame/Assets/UnityTestTools/UnitTesting/Editor/NSubstitute/NSubstitute.dll</HintPath>
  </Reference>

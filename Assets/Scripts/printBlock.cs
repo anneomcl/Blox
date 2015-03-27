@@ -26,8 +26,18 @@ public class printBlock : Block {
 	
 	// Use this for initialization
 	void Start () {
-		
-		Physics2D.IgnoreLayerCollision (DEFAULT_LAYER, VOID_LAYER);
+		SetRigidBodyConstraints ();
+		Physics.IgnoreLayerCollision (DEFAULT_LAYER, VOID_LAYER);
+	}
+
+	void SetRigidBodyConstraints()
+	{
+		rigidbody.constraints = RigidbodyConstraints.FreezeRotationX 
+			| RigidbodyConstraints.FreezeRotationY 
+				| RigidbodyConstraints.FreezeRotationZ 
+				| RigidbodyConstraints.FreezePositionX
+				| RigidbodyConstraints.FreezePositionY 
+				| RigidbodyConstraints.FreezePositionZ;
 	}
 	
 	// Update is called once per frame
@@ -73,8 +83,10 @@ public class printBlock : Block {
 		isFreeToMove = true;
 		setCurrentSelectedBlock ();
 		
-		Destroy (transform.rigidbody2D);
+		Destroy (transform.rigidbody);
 		transform.gameObject.layer = VOID_LAYER;
+
+		BlockMethods.Center.MoveColliderUpManyLayers (this, -5);
 		
 		dist = Camera.main.WorldToScreenPoint(transform.position);
 		posX = Input.mousePosition.x - dist.x;
@@ -103,9 +115,11 @@ public class printBlock : Block {
 	void OnMouseUp(){
 		isFreeToMove = false;
 
-		Rigidbody2D newRigidBody = transform.gameObject.AddComponent<Rigidbody2D> ();
+		Rigidbody newRigidBody = transform.gameObject.AddComponent<Rigidbody> ();
 		newRigidBody.mass = 1;
-		
+		SetRigidBodyConstraints ();
+		BlockMethods.Center.MoveColliderUpManyLayers (this, 0);
+
 		transform.gameObject.layer = DEFAULT_LAYER;
 		
 		transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
