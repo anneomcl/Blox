@@ -18,12 +18,27 @@ namespace BlockMethods {
 
 			if(curr.root == curr)
 			{
-				newHeight = GameObject.Find (curr.children[0]).GetComponent<Block>().spriteDim.y;
-				newHeight += curr.children.Count*(margin) + 1;
+				if(curr.children.Count > 0)
+				{
+					newHeight = GameObject.Find (curr.children[0]).GetComponent<Block>().spriteDim.y;
+					newHeight += curr.children.Count*(margin) + 1;
+				}
 			}
 
-			ApplyScale (curr, newWidth, newHeight);
 			
+			ApplyScale (curr, newWidth, newHeight);
+
+			if(curr.children.Count == 0)
+			{
+				newHeight = 1.0f;
+				newWidth = 1.0f;
+				
+				Vector3 newScale = new Vector3 (newHeight, newWidth, curr.transform.localScale.z);
+				curr.transform.localScale = newScale;
+				curr.spriteDim.x = curr.transform.localScale.x;
+				curr.spriteDim.y = curr.transform.localScale.y;
+			}
+
 			if (curr.root != curr | curr.parent != null) {
 				ResizeParents (curr.parent);
 			}
@@ -38,7 +53,15 @@ namespace BlockMethods {
 								scaleWidth = newWidth - curr.transform.localScale.x;*/
 
 			Vector3 newScale = new Vector3 (scaleWidth, scaleHeight, 0);
-			curr.transform.localScale += newScale;
+			if(!curr.delete)
+				curr.transform.localScale += newScale;
+			else
+			{
+				if(curr.transform.localScale.x - newScale.x > 1 & curr.transform.localScale.y - newScale.y > 1)
+					curr.transform.localScale -= newScale;
+				if(curr.transform.localScale.x == 1 & curr.transform.localScale.y == 1)
+					curr.transform.localScale += newScale;
+			}
 			curr.spriteDim.x = curr.transform.localScale.x;
 			curr.spriteDim.y = curr.transform.localScale.y;
 		}
@@ -151,10 +174,10 @@ namespace BlockMethods {
 
 		public static void CalculateOffsetsEvenChildren(float numChildren, float parentYDim, float parentYCenter, float margin, List<float> offsetList){
 
-			//if (numChildren == 2) 
-			//{
-			//	margin = 0.5f; //this is the only case where the resizing is too small for recenter
-			//}
+			if (numChildren == 2) 
+			{
+				margin = 0.15f; //this is the only case where the resizing is too small for recenter
+			}
 
 			for (int i = 0; i < (int) numChildren/2; i++)
 			{
@@ -230,7 +253,20 @@ namespace BlockMethods {
 			else
 				child.root = parent.root;
 		}
-		
+
+		public static void removeChild(Block currParent, Block currChild, string child){
+
+			for(int i = 0; i < currParent.children.Count; i++)
+			{
+				Block curr = GameObject.Find (currParent.children[i]).GetComponent<Block>();
+				if(curr.name == child)
+				{
+					currParent.children.Remove(child);
+					currChild.parent = null;
+				}
+			}
+		}
+
 		public static void addChild(Block currParent, Block currChild, string child){
 
 			int index = 0;
@@ -278,14 +314,14 @@ namespace BlockMethods {
 			
 			while(currParent != null)
 			{
-				Physics.IgnoreCollision(curr.collider, currParent.collider);
+				Physics.IgnoreCollision(curr.GetComponent<Collider>(), currParent.GetComponent<Collider>());
 				currParent = currParent.parent;
 			}
 
 			foreach (string child in parentBlock.children) {
 				Block chb = GameObject.Find (child).GetComponent<Block> ();
 				if(chb == curr) continue;
-				Physics.IgnoreCollision(curr.collider, chb.collider);
+				Physics.IgnoreCollision(curr.GetComponent<Collider>(), chb.GetComponent<Collider>());
 			}
 		}
 	}

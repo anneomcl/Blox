@@ -1,10 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\VisualNovel\Assets\Resources\Scripts\DialogueBox.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Scripts\CreateBlockButton.cs">
     <Files>
-      <File FileName="..\VisualNovel\Assets\Resources\Scripts\DialogueBox.cs" Line="18" Column="15" />
-      <File FileName="..\VisualNovel\Assets\Resources\Scripts\DialogueParser.cs" Line="37" Column="23" />
-      <File FileName="..\VisualNovel\Assets\Resources\Dialogue1.txt" Line="4" Column="28" />
+      <File FileName="Assets\Resources\puzzles.txt" Line="5" Column="92" />
+      <File FileName="Assets\Resources\Scripts\PuzzleOutro.cs" Line="1" Column="1" />
+      <File FileName="Assets\Resources\Scripts\Finish.cs" Line="1" Column="1" />
+      <File FileName="Assets\Resources\Scripts\Code.cs" Line="1" Column="1" />
+      <File FileName="Assets\Resources\Scripts\Puzzle.cs" Line="1" Column="1" />
+      <File FileName="Assets\Resources\Scripts\goButton.cs" Line="1" Column="1" />
+      <File FileName="Assets\Resources\Scripts\loopBlock.cs" Line="1" Column="1" />
+      <File FileName="Assets\Resources\Scripts\CreateBlockButton.cs" Line="66" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

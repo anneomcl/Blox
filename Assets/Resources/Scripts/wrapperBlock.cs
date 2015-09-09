@@ -75,7 +75,7 @@ public class wrapperBlock : Block {
 		isFreeToMove = true;
 		setCurrentSelectedBlock ();
 		
-		Destroy (transform.rigidbody);
+		Destroy (transform.GetComponent<Rigidbody>());
 		transform.gameObject.layer = VOID_LAYER;
 
 		//BlockMethods.Center.MoveColliderUpManyLayers (this, -5);
@@ -101,7 +101,7 @@ public class wrapperBlock : Block {
 
 	void SetRigidBodyConstraints()
 	{
-		rigidbody.constraints = RigidbodyConstraints.FreezeRotationX 
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX 
 			| RigidbodyConstraints.FreezeRotationY 
 				| RigidbodyConstraints.FreezeRotationZ 
 				| RigidbodyConstraints.FreezePositionX

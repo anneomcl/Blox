@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using UnityEditor;
 using System.Text.RegularExpressions;
 
 class Puzzle : MonoBehaviour {
@@ -15,10 +14,10 @@ class Puzzle : MonoBehaviour {
 	
 	void Start(){
 		
-		trigger = GameObject.Find ("PuzzleButton").GetComponent<CreateBlockButton> ();
+		trigger = GameObject.Find ("CheckPuzzleButton").GetComponent<CreateBlockButton> ();
 		string levelNum;
-		string puzzleNum = EditorApplication.currentScene;
-		if (puzzleNum == "Assets/StageSelect.unity")
+		string puzzleNum = Application.loadedLevelName;
+		if (puzzleNum == "StageSelect" | puzzleNum == "Menu")
 			levelNum = "1";
 		else
 			levelNum = Regex.Replace (puzzleNum, "[^0-9]", "");
@@ -27,7 +26,7 @@ class Puzzle : MonoBehaviour {
 	}
 
 	void Update(){
-		if (Code.ParseBlocks.complete) 
+		if (Code.ParseBlocks.executionComplete) 
 		{
 			Application.LoadLevel("Level" + puzzleNumber.ToString() + "Outro");
 		}
@@ -35,7 +34,7 @@ class Puzzle : MonoBehaviour {
 
 	public void OnGUI(){
 		if(trigger.guiDisplay)
-			GUI.DrawTexture(new Rect(10,10,600,600), this.puzzleImage);
+			GUI.DrawTexture(new Rect(0, 0,850,600), this.puzzleImage);
 	}
 
 	public void Load(string fileName, int levelNum)

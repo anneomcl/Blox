@@ -25,7 +25,7 @@ public class StageSelectButton : MonoBehaviour {
 		string levelNum = Regex.Replace (name, "[^0-9]", "");
 		//string path = "Level" + levelNum.ToString () + "Intro";
 		int num = 3 * int.Parse (levelNum) - 1;
-		Application.LoadLevel (2);
+		Application.LoadLevel (num);
 	}
 
 	public void GoBack(){

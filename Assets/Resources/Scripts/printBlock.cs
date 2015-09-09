@@ -3,17 +3,18 @@ using System.Collections;
 
 public class printBlock : Block {
 	
-	public string default_input = "Print statement?";
-	public string block_input = "";
+	public string default_input = "What should I say?";
+	private string block_input = "";
 	bool guiIsVisible = false;
 	bool moveBack = false;
 	
 	public override string Type{
+		
 		get {
 			return "print";
 		}
 	}
-
+	
 	public override string BlockInput{
 		
 		get {
@@ -25,15 +26,17 @@ public class printBlock : Block {
 		}
 	}
 	
+	
+	
 	// Use this for initialization
 	void Start () {
 		SetRigidBodyConstraints ();
 		Physics.IgnoreLayerCollision (DEFAULT_LAYER, VOID_LAYER);
 	}
-
+	
 	void SetRigidBodyConstraints()
 	{
-		rigidbody.constraints = RigidbodyConstraints.FreezeRotationX 
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX 
 			| RigidbodyConstraints.FreezeRotationY 
 				| RigidbodyConstraints.FreezeRotationZ 
 				| RigidbodyConstraints.FreezePositionX
@@ -45,18 +48,16 @@ public class printBlock : Block {
 	void Update () {
 		
 		UpdateBlockCenters (this);
-		
-		if((Input.GetKeyDown("return") & block_input != default_input) | Input.GetKeyDown("escape")){
+		if((Input.GetKeyDown("return")) | Input.GetKeyDown("escape")){
 			guiIsVisible = false;
 			GUI.enabled = false;
 		}
-
+		
 		if(moveBack){
 			Vector3 newLocation = new Vector3 (transform.position.x, transform.position.y, 0);
 			transform.position = Vector3.MoveTowards (transform.position, newLocation, .1f);
 			if(transform.position.z == 0) moveBack = false;
 		}
-
 	}
 	
 	void UpdateBlockCenters(Block curr)
@@ -73,6 +74,7 @@ public class printBlock : Block {
 	
 	void setCurrentSelectedBlock()
 	{
+		
 		GameObject [] blockList = GameObject.FindGameObjectsWithTag("Block");
 		foreach(GameObject blockObj in blockList)
 		{
@@ -89,19 +91,19 @@ public class printBlock : Block {
 	void OnMouseDown(){
 		isFreeToMove = true;
 		setCurrentSelectedBlock ();
-
 		
-		Destroy (transform.rigidbody);
+		Destroy (transform.GetComponent<Rigidbody>());
 		transform.gameObject.layer = VOID_LAYER;
-
-		if(parent == null && root != this && children.Count == 0)
-			transform.localScale = smallScale;
-
+		
 		//BlockMethods.Center.MoveColliderUpManyLayers (this, -5);
 		
 		dist = Camera.main.WorldToScreenPoint(transform.position);
 		posX = Input.mousePosition.x - dist.x;
 		posY = Input.mousePosition.y - dist.y;
+		
+		if(parent == null && children.Count == 0 && root != this)
+			transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
+		
 		guiIsVisible = true;
 	}
 	
@@ -114,45 +116,51 @@ public class printBlock : Block {
 		
 		Vector3 worldPos = Camera.main.ScreenToWorldPoint(curPos);
 		
-		if (worldPos.z < -5)
-			worldPos.z = -5;
-		
 		transform.position = worldPos;
-		
 		transform.position = new Vector3 (transform.position.x, transform.position.y, -5);
 		
 	}
 	
 	void OnMouseUp(){
 		isFreeToMove = false;
-
+		
 		Rigidbody newRigidBody = transform.gameObject.AddComponent<Rigidbody> ();
 		newRigidBody.mass = 1;
 		SetRigidBodyConstraints ();
 		//BlockMethods.Center.MoveColliderUpManyLayers (this, 0);
-
+		
 		moveBack = true;
-
-		transform.localScale = originalScale;
-
+		
 		transform.gameObject.layer = DEFAULT_LAYER;
-
+		
+		
+		transform.localScale = originalScale;
+		
+		//transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
+		
 	}
 	
 	void OnGUI() {
 		if(guiIsVisible){
 			
-			Rect textfield_position = new Rect (new Rect(200, 550, 500, 20));
-			block_input = GUI.TextField (new Rect (200, 550, 500, 20), block_input);
+			GUI.SetNextControlName ("text");
+			Rect textfield_position = new Rect (new Rect(175, 400, 475, 150));
+			GUIStyle guiStyle = GameObject.Find ("GUIStyle").GetComponent<GUIStyleCustom>().guiStyle;
+			block_input = GUI.TextField (textfield_position, block_input, guiStyle);
 			
 			if(UnityEngine.Event.current.type == EventType.Repaint)
 			{
-				
 				if(textfield_position.Contains(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y)))
 				{
-					if(block_input == default_input)
+					if (GUI.GetNameOfFocusedControl () == "text")
 					{
+						GUIStyle guiStyle2 = new GUIStyle();
+						Font myFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
+						guiStyle2.font = myFont;
+						guiStyle2.fontSize = 24;
+						GUI.Label(new Rect(250,100,400,100), "Press 'Enter' twice to submit!", guiStyle2);
 						
+						if (block_input == default_input) block_input = "";
 					}
 				}
 				
@@ -161,6 +169,11 @@ public class printBlock : Block {
 					if(block_input == "") block_input = default_input;
 				}
 			}
+		}
+		
+		if (Event.current.isKey && Event.current.keyCode == KeyCode.Return) {
+			GUI.SetNextControlName ("");
+			GUI.FocusControl ("");
 		}
 	}
 }

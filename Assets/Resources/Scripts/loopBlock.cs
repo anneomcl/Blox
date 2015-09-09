@@ -2,8 +2,7 @@
 using System.Collections;
 
 public class loopBlock : Block {
-	
-	public string default_input = "How many iterations?";
+	public string default_input = "How many minutes?";
 	private string block_input = "";
 	bool guiIsVisible = false;
 	bool moveBack = false;
@@ -36,7 +35,7 @@ public class loopBlock : Block {
 
 	void SetRigidBodyConstraints()
 	{
-		rigidbody.constraints = RigidbodyConstraints.FreezeRotationX 
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX 
 			| RigidbodyConstraints.FreezeRotationY 
 				| RigidbodyConstraints.FreezeRotationZ 
 				| RigidbodyConstraints.FreezePositionX
@@ -93,7 +92,7 @@ public class loopBlock : Block {
 		isFreeToMove = true;
 		setCurrentSelectedBlock ();
 		
-		Destroy (transform.rigidbody);
+		Destroy (transform.GetComponent<Rigidbody>());
 		transform.gameObject.layer = VOID_LAYER;
 
 		//BlockMethods.Center.MoveColliderUpManyLayers (this, -5);
@@ -143,17 +142,25 @@ public class loopBlock : Block {
 
 	void OnGUI() {
 		if(guiIsVisible){
-			Rect textfield_position = new Rect (new Rect(200, 550, 500, 20));
-			block_input = GUI.TextField (new Rect (200, 550, 500, 20), block_input);
-
+			
+			GUI.SetNextControlName ("text");
+			Rect textfield_position = new Rect (new Rect(175, 400, 475, 150));
+			GUIStyle guiStyle = GameObject.Find ("GUIStyle").GetComponent<GUIStyleCustom>().guiStyle;
+			block_input = GUI.TextField (textfield_position, block_input, guiStyle);
+			
 			if(UnityEngine.Event.current.type == EventType.Repaint)
 			{
-				
 				if(textfield_position.Contains(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y)))
 				{
-					if(block_input == default_input)
+					if (GUI.GetNameOfFocusedControl () == "text")
 					{
-
+						GUIStyle guiStyle2 = new GUIStyle();
+						Font myFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
+						guiStyle2.font = myFont;
+						guiStyle2.fontSize = 24;
+						GUI.Label(new Rect(250,100,400,100), "Press 'Enter' twice to submit!", guiStyle2);
+						
+						if (block_input == default_input) block_input = "";
 					}
 				}
 				
@@ -162,6 +169,11 @@ public class loopBlock : Block {
 					if(block_input == "") block_input = default_input;
 				}
 			}
+		}
+		
+		if (Event.current.isKey && Event.current.keyCode == KeyCode.Return) {
+			GUI.SetNextControlName ("");
+			GUI.FocusControl ("");
 		}
 	}
 }

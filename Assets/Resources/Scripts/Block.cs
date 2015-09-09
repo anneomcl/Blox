@@ -25,6 +25,7 @@ public class Block : MonoBehaviour {
 	public virtual string BlockInput { get; set; }
 	public Vector3 originalScale = new Vector3(1f, 1f, 1f);
 	public Vector3 smallScale = new Vector3(0.5f, 0.5f, 0.5f);
+	public bool delete = false;
            	#endregion
 
 	void Start(){
@@ -55,6 +56,8 @@ public class Block : MonoBehaviour {
 			if(parentBlock.parent != null){
 				if(parentBlock.parent.parent != null || parentBlock.parent == childBlock.parent) return;
 			}
+
+			if(parentBlock.children.Count > 1) return;
 
 			BlockMethods.BlockCollision.HandleParentChildCollision(childBlock, parentBlock, childName);
 		}

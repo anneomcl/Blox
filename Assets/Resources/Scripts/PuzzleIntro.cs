@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using UnityEditor;
 using System.Text.RegularExpressions;
 
 public class PuzzleIntro : MonoBehaviour {
@@ -14,28 +13,27 @@ public class PuzzleIntro : MonoBehaviour {
 	
 	void Start(){
 		string levelNum;
-		string puzzleNum = EditorApplication.currentScene;
-		if (puzzleNum == "Assets/StageSelect.unity")
+		string puzzleNum = Application.loadedLevelName;
+		if (puzzleNum == "StageSelect" | puzzleNum == "Menu")
 			levelNum = "1";
 		else
 			levelNum = Regex.Replace (puzzleNum, "[^0-9]", "");
 		puzzleNumber = int.Parse (levelNum);
-		Load ("Assets/Resources/puzzles.txt", puzzleNumber);
+		Load ("Assets/Resources/puzzles.txt");
 	}
 
 	void Update(){
 		if (Input.GetMouseButtonDown (0)) {
-			Application.LoadLevel("Level" + puzzleNumber.ToString());
+			Application.LoadLevel(puzzleNumber*3);
 		}
 	}
 	
 	void OnGUI(){
-		GUI.DrawTexture(new Rect(10,10,600,600), this.puzzleImage);
+		GUI.DrawTexture(new Rect(0, 0,850,600), this.puzzleImage);
 	}
 
-	public void Load(string fileName, int levelNum)
+	public void Load(string fileName)
 	{
-		levelNum--;
 		List<string> entries = new List<string>();
 		string line;
 		StreamReader reader = new StreamReader (fileName,Encoding.Default);
