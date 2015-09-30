@@ -145,7 +145,7 @@ public class doBlock : Block {
 		if(guiIsVisible){
 
 			GUI.SetNextControlName ("text");
-			Rect textfield_position = new Rect (new Rect(175, 400, 475, 150));
+			Rect textfield_position = new Rect (new Rect(300, 500, 475, 150));
 			GUIStyle guiStyle = GameObject.Find ("GUIStyle").GetComponent<GUIStyleCustom>().guiStyle;
 			block_input = GUI.TextField (textfield_position, block_input, guiStyle);
 			

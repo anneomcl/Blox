@@ -1,19 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Scripts\CreateBlockButton.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Scripts\Puzzle.cs">
     <Files>
-      <File FileName="Assets\Resources\puzzles.txt" Line="5" Column="92" />
-      <File FileName="Assets\Resources\Scripts\PuzzleOutro.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Scripts\Finish.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Scripts\Code.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Scripts\Puzzle.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Scripts\goButton.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Scripts\loopBlock.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Scripts\CreateBlockButton.cs" Line="66" Column="36" />
+      <File FileName="Assets\Resources\Scripts\PuzzleIntro.cs" Line="38" Column="29" />
+      <File FileName="Assets\Resources\Scripts\goButton.cs" Line="38" Column="4" />
+      <File FileName="Assets\Resources\Scripts\Code.cs" Line="21" Column="1" />
+      <File FileName="Assets\Resources\Scripts\Puzzle.cs" Line="44" Column="29" />
+      <File FileName="Assets\Resources\puzzles.txt" Line="1" Column="1" />
+      <File FileName="Assets\Resources\Scripts\PuzzleOutro.cs" Line="17" Column="79" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\Anne\Documents\CodeGame\Assets\Resources\Scripts\PuzzleIntro.cs" line="45" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

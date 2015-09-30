@@ -11,7 +11,9 @@ class Puzzle : MonoBehaviour {
 	public CreateBlockButton trigger;
 	public int puzzleNumber = 0;
 	public string solution = "";
-	
+
+	string allsolns = "1,Puzzle001,Debug.Log('Hello world');@2,Puzzle002,Debug.Log('Good morning');Do('Eat breakfast');@3,Puzzle003,for(int i = 0; i < 60; i++){Do('Drive');}@4,Puzzle004,Debug.Log('You look great!');for(int i = 0; i < 300; i++){Do('Work');Do('Check e-mail');}@5,Puzzle005,Do('Sit at park bench');for(int i = 0; i < 2; i++){for(int i = 0; i < 10; i++){}Debug.Log('Eureka!');}";
+
 	void Start(){
 		
 		trigger = GameObject.Find ("CheckPuzzleButton").GetComponent<CreateBlockButton> ();
@@ -22,7 +24,8 @@ class Puzzle : MonoBehaviour {
 		else
 			levelNum = Regex.Replace (puzzleNum, "[^0-9]", "");
 		puzzleNumber = int.Parse (levelNum);
-		Load ("Assets/Resources/puzzles.txt", puzzleNumber);
+		//Load ("Assets/Resources/puzzles.txt", puzzleNumber);
+		LoadWeb (allsolns);
 	}
 
 	void Update(){
@@ -35,6 +38,21 @@ class Puzzle : MonoBehaviour {
 	public void OnGUI(){
 		if(trigger.guiDisplay)
 			GUI.DrawTexture(new Rect(0, 0,850,600), this.puzzleImage);
+	}
+
+	public void LoadWeb(string s){
+		string[] hey = s.Split ("@" [0]);
+		int i = 1;
+		foreach (string l in hey) {
+			if( i == puzzleNumber && l != null)
+			{
+				string[] add = l.Split (',');
+				puzzleImage = (Texture) Resources.Load ("Images/"+add[1]);
+				solution = add[2];
+				break;
+			}
+			i++;
+		}
 	}
 
 	public void Load(string fileName, int levelNum)

@@ -1,0 +1,40 @@
+Initialize engine version: 4.6.1f1 (d1db7a1b5196)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 660M   (ID=0xfd4)
+    Vendor:   NVIDIA
+    VRAM:     1990 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_UsabilityTest_05-25-2015_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Anne\Documents\CodeGame\CodeGame_UsabilityTest_05-25-2015_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_UsabilityTest_05-25-2015_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Anne\Documents\CodeGame\CodeGame_UsabilityTest_05-25-2015_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_UsabilityTest_05-25-2015_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\Anne\Documents\CodeGame\CodeGame_UsabilityTest_05-25-2015_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_UsabilityTest_05-25-2015_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Anne\Documents\CodeGame\CodeGame_UsabilityTest_05-25-2015_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_UsabilityTest_05-25-2015_Data\Managed\mono.csharp.dll (this message is harmless)
+Loading C:\Users\Anne\Documents\CodeGame\CodeGame_UsabilityTest_05-25-2015_Data\Managed\mono.csharp.dll into Unity Child Domain
+- Completed reload, in  0.129 seconds
+desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_UsabilityTest_05-25-2015_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_UsabilityTest_05-25-2015_Data\Managed\System.dll (this message is harmless)
+UnloadTime: 7.836728 ms
+System memory in use before: 10.1 MB.
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+System memory in use after: 10.0 MB.
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 215.
+Total: 1.480451 ms (FindLiveObjects: 0.029506 ms CreateObjectMapping: 0.025230 ms MarkObjects: 0.240327 ms  DeleteObjects: 0.013684 ms)
+
+UnloadTime: 0.549075 ms
+System memory in use before: 10.3 MB.
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+System memory in use after: 10.2 MB.
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 306.
+Total: 1.699397 ms (FindLiveObjects: 0.028223 ms CreateObjectMapping: 0.019670 ms MarkObjects: 0.444306 ms  DeleteObjects: 0.022664 ms)
+

@@ -1,0 +1,36 @@
+Initialize engine version: 4.6.1f1 (d1db7a1b5196)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 660M   (ID=0xfd4)
+    Vendor:   NVIDIA
+    VRAM:     1990 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Anne\Documents\CodeGame\CodeGame_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Anne\Documents\CodeGame\CodeGame_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\Anne\Documents\CodeGame\CodeGame_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Anne\Documents\CodeGame\CodeGame_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_Data\Managed\mono.csharp.dll (this message is harmless)
+Loading C:\Users\Anne\Documents\CodeGame\CodeGame_Data\Managed\mono.csharp.dll into Unity Child Domain
+- Completed reload, in  0.087 seconds
+desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Anne\Documents\CodeGame\CodeGame_Data\Managed\System.dll (this message is harmless)
+UnloadTime: 6.638511 ms
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 214.
+Total: 1.718640 ms (FindLiveObjects: 0.016249 ms CreateObjectMapping: 0.015822 ms MarkObjects: 0.218946 ms  DeleteObjects: 0.007269 ms)
+
+UnloadTime: 0.469108 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 305.
+Total: 1.929889 ms (FindLiveObjects: 0.026085 ms CreateObjectMapping: 0.019670 ms MarkObjects: 0.428056 ms  DeleteObjects: 0.014111 ms)
+
